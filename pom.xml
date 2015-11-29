@@ -24,6 +24,11 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
    	 		<artifactId>ij</artifactId>
   	 		<version>1.49r</version>
 		</dependency>
+		<dependency>
+    		<groupId>org.rosuda.REngine</groupId>
+    		<artifactId>Rserve</artifactId>
+    		<version>1.8.1</version>
+		</dependency>
 	</dependencies>
 	<developers>
 		<developer>
