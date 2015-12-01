@@ -6,7 +6,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
  
 	<groupId>de.biomedical-imaging.imagej</groupId>
 	<artifactId>ij_r_plot</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	
 	<parent>
@@ -22,7 +22,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 		<dependency>
    	 		<groupId>net.imagej</groupId>
    	 		<artifactId>ij</artifactId>
-  	 		<version>1.49r</version>
+  	 		<version>1.50e</version>
 		</dependency>
 		<dependency>
     		<groupId>org.rosuda.REngine</groupId>

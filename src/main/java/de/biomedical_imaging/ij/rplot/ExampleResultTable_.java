@@ -1,7 +1,6 @@
 package de.biomedical_imaging.ij.rplot;
 import java.util.Random;
 
-import ij.IJ;
 import ij.measure.ResultsTable;
 import ij.plugin.PlugIn;
 import ij.plugin.filter.Analyzer;

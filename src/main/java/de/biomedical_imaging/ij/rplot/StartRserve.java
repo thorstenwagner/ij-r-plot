@@ -3,7 +3,6 @@ import ij.IJ;
 
 import java.io.*;
 import java.net.URI;
-import java.util.*;
 
 import org.rosuda.REngine.Rserve.RConnection;
 
@@ -110,7 +109,9 @@ public class StartRserve {
 							      });
 			}
 			// we need to fetch the output - some platforms will die if you don't ...
+			@SuppressWarnings("unused")
 			StreamHog errorHog = new StreamHog(p.getErrorStream(), false);
+			@SuppressWarnings("unused")
 			StreamHog outputHog = new StreamHog(p.getInputStream(), false);
 			if (!isWindows) /* on Windows the process will never return, so we cannot wait */
 				p.waitFor();

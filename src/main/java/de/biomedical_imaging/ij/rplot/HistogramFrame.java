@@ -16,19 +16,19 @@ import ij.gui.ImageWindow;
 import ij.io.Opener;
 import ij.io.SaveDialog;
 import ij.measure.ResultsTable;
-import ij.plugin.Macro_Runner;
-import ij.plugin.frame.PlugInFrame;
 import ij.Prefs;
 
-import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-import org.rosuda.REngine.REngine;
 import org.rosuda.REngine.Rserve.RConnection;
 
 public class HistogramFrame extends Frame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int column;
 	private double[] data;
 	private String title;
@@ -40,7 +40,6 @@ public class HistogramFrame extends Frame {
 	private boolean showbars;
 	private int numberOfBins;
 	private String filename;
-	private ImageCanvas ic;
 	private ImagePlus imp;
 	
 
