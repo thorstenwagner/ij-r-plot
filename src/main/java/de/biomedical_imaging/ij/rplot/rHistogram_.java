@@ -4,10 +4,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import ij.IJ;
+import ij.ImagePlus;
 import ij.gui.GenericDialog;
+import ij.gui.HistogramWindow;
 import ij.measure.ResultsTable;
+import ij.plugin.Histogram;
 import ij.plugin.PlugIn;
 import ij.plugin.filter.Analyzer;
+import ij.process.FloatProcessor;
 
 public class rHistogram_ implements PlugIn {
 	static Set<Integer> ignoreHeadings;
@@ -89,6 +93,17 @@ public class rHistogram_ implements PlugIn {
 	
 			test.hist(column, title, xlab, ylab, addDensity, addNormal, addlognormal,
 					showbars);
+			
+			if(test.isStartSucceded() ==false){
+				double[] data = rt.getColumnAsDoubles(column);
+				FloatProcessor fp = new FloatProcessor(data.length, 1, data);
+				ImagePlus imhelp = new ImagePlus("h", fp);
+				int bins = (int)Math.ceil(Math.log(data.length)/Math.log(2)+1)*2;
+				HistogramWindow hw = new HistogramWindow(title, imhelp, bins);
+				hw.setVisible(true);
+			}
+			
+			
 		}
 		
 

@@ -19,7 +19,7 @@ public class RPlot extends Canvas{
 	 */
 	private static final long serialVersionUID = 1L;
 	String cmd;
-	
+	boolean startsucceded = false;
 	public RPlot(){
 		if(IJ.isLinux()){
 			cmd = "R";
@@ -37,7 +37,15 @@ public class RPlot extends Canvas{
 			//cmd = plugins+"ndef\\R.bat";
 			//IJ.log("PFAD: " + cmd);
 		}
-		StartRserve.launchRserve(cmd);
+		
+			startsucceded = StartRserve.launchRserve(cmd);
+		
+		
+		
+	}
+	
+	public boolean isStartSucceded(){
+		return startsucceded;
 	}
 	
 	 /**

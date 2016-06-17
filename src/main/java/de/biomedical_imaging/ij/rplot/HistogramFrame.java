@@ -56,7 +56,8 @@ public class HistogramFrame extends Frame {
 		this.addNormal = addNormal;
 		this.addlognormal = addlognormal;
 		this.showbars = showbars;
-		updateData();
+
+		updateData(true);
 		
 		filename = plotHist();
 		Opener opener = new Opener();  
@@ -70,13 +71,15 @@ public class HistogramFrame extends Frame {
 		configureListeners(imp.getCanvas());
 	}
 	
-	public void updateData(){
+	private void updateData(boolean updatebins){
 		data = ResultsTable.getResultsTable().getColumnAsDoubles(column);
-		numberOfBins = getNumberOfBins();
+		if(updatebins){
+			numberOfBins = getNumberOfBins();
+		}
 	}
 	
 	public void updatePlot(){
-		updateData();
+		updateData(false);
 		filename = plotHist();
 		//this.remove(ic);
 		Point p = imp.getWindow().getLocation(); //Save the position
@@ -382,12 +385,12 @@ public class HistogramFrame extends Frame {
 		
 	}
 
-	public String plotHist() {
+	private String plotHist() {
 		RConnection c;
 		//RConnection.getLastEngine()
 		String tmp = "";
 		String filename = "";
-		updateData();
+	//	updateData();
 		try {
 			tmp = IJ.getDirectory("temp");
 			tmp = tmp.replace("\\", "\\\\");
@@ -410,7 +413,7 @@ public class HistogramFrame extends Frame {
 				Rcode += "sdlog <- f$estimate[\"sdlog\"];";
 				Rcode += "yfit<-dlnorm(xfit,meanlog=meanlog,sdlog=sdlog);";
 			}
-
+			
 			if (showbars && (addNormal || addlognormal)) {
 				Rcode += "h<-hist(datax,breaks="
 						+ numberOfBins
@@ -502,13 +505,13 @@ public class HistogramFrame extends Frame {
 				Rcode += "emean <- round(exp(meanlog+0.5*sdlog^2),3);"; // Exponential
 																		// of
 																		// mean
-				Rcode += "emeanerr <- round(f$sd[\"meanlog\"],4);";
+				Rcode += "emeanerr <- round(exp(f$sd[\"meanlog\"]),4);";
 				Rcode += "esd <- round(exp(meanlog+0.5*sdlog^2)*sqrt(exp(sdlog^2)-1),3);"; // Exponential
 																							// of
 																							// the
 																							// standard
 																							// deviation
-				Rcode += "esderr <- round(f$sd[\"sdlog\"],4);";
+				Rcode += "esderr <- round(exp(f$sd[\"sdlog\"]),4);";
 				Rcode += "median <- median(datax);";
 				//Rcode += "mtext(paste(\"median=\",median,\" Fit (log-normal): mode = \",emode,\" mean = \",emean,\" (\",emeanerr,\") sd = \",esd,\" (\",esderr,\")\"));";
 				Rcode += "mtext(substitute(paste('x'[50],\"=\",med,\" mode=\",mo,\" \",mu,\"=\",m,\" (\",mr,\") \",sigma,\"=\",sd,\" (\",sdr,\")\"),list(med=median,mo=emode,m=emean,mr=emeanerr,sd=esd,sdr=esderr)),side=3)";
