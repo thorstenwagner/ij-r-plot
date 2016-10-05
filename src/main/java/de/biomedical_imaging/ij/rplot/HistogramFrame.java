@@ -21,7 +21,12 @@ import ij.Prefs;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
+import org.rosuda.REngine.REXP;
+import org.rosuda.REngine.REXPMismatchException;
+import org.rosuda.REngine.REngine;
+import org.rosuda.REngine.REngineException;
 import org.rosuda.REngine.Rserve.RConnection;
+import org.rosuda.REngine.Rserve.RserveException;
 
 public class HistogramFrame extends Frame {
 
@@ -41,7 +46,7 @@ public class HistogramFrame extends Frame {
 	private int numberOfBins;
 	private String filename;
 	private ImagePlus imp;
-	
+	private String unit;
 
 	
 	public HistogramFrame(int column, String title, String xlab, String ylab,
@@ -56,12 +61,11 @@ public class HistogramFrame extends Frame {
 		this.addNormal = addNormal;
 		this.addlognormal = addlognormal;
 		this.showbars = showbars;
-
+		this.unit = IJ.getImage().getCalibration().getUnit();
 		updateData(true);
 		
 		filename = plotHist();
 		Opener opener = new Opener();  
-		
 		imp =  opener.openImage(filename);
 		
 		imp.show();
@@ -517,8 +521,11 @@ public class HistogramFrame extends Frame {
 				Rcode += "mtext(substitute(paste('x'[50],\"=\",med,\" mode=\",mo,\" \",mu,\"=\",m,\" (\",mr,\") \",sigma,\"=\",sd,\" (\",sdr,\")\"),list(med=median,mo=emode,m=emean,mr=emeanerr,sd=esd,sdr=esderr)),side=3)";
 			}
 			else{
-				Rcode += "median <- round(median(datax),3);";
-				Rcode += "mtext(substitute(paste('x'[50],\"=\",med),list(med=median)));";
+				Rcode += "median <- median(datax);";
+				Rcode += "median <- as.numeric(prettyNum(median, digits=3));";
+			//	Rcode += "mtext(substitute(paste('x'[50],\"=\",med),list(med=median)));";
+				Rcode += "mtext(substitute(paste('x'[50],\"=\",medtxt,\" \",\""+unit+"\"),list(medtxt=format(median,scientific=TRUE))));";
+			
 			}
 			c.eval(Rcode);
 			c.eval("dev.off()");
@@ -532,6 +539,7 @@ public class HistogramFrame extends Frame {
 
 		return tmp + filename;
 	}
+	
 	
 	private String getStamp() {
 		 java.util.Date date= new java.util.Date();

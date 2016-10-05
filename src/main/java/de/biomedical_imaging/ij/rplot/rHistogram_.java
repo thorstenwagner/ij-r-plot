@@ -48,6 +48,7 @@ public class rHistogram_ implements PlugIn {
 		gd.addCheckbox("Show histogram bars", true);
 		gd.showDialog();
 		
+		
 		if (!gd.wasCanceled()) {
 			int column = rt.getColumnIndex(gd.getNextChoice());
 			//double[] data = rt.getColumnAsDoubles(column);
