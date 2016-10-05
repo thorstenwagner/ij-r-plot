@@ -503,22 +503,47 @@ public class HistogramFrame extends Frame {
 			}
 			else if (addlognormal) {
 				Rcode += "lines(xfit, yfit, col=\"darkblue\", lwd=4);";
-				Rcode += "emode <- round(exp(meanlog-sdlog^2),3);"; // Exponential
+				Rcode += "emode <- exp(meanlog-sdlog^2);"; // Exponential
 																	// of the
 																	// mode
-				Rcode += "emean <- round(exp(meanlog+0.5*sdlog^2),3);"; // Exponential
+				Rcode += "emode <- as.numeric(prettyNum(emode, digits=3));";
+				Rcode += "emean <- exp(meanlog+0.5*sdlog^2);"; // Exponential
 																		// of
 																		// mean
-				Rcode += "emeanerr <- round(exp(f$sd[\"meanlog\"]),4);";
-				Rcode += "esd <- round(exp(meanlog+0.5*sdlog^2)*sqrt(exp(sdlog^2)-1),3);"; // Exponential
+				Rcode += "emean <- as.numeric(prettyNum(emean, digits=3));";
+				Rcode += "emeanerr <- exp(f$sd[\"meanlog\"]);";
+				Rcode += "emeanerr <- as.numeric(prettyNum(emeanerr, digits=3));";
+				Rcode += "esd <- exp(meanlog+0.5*sdlog^2)*sqrt(exp(sdlog^2)-1);"; // Exponential
 																							// of
 																							// the
 																							// standard
 																							// deviation
-				Rcode += "esderr <- round(exp(f$sd[\"sdlog\"]),4);";
+				
+				Rcode += "esd <- as.numeric(prettyNum(esd, digits=3));";
+				Rcode += "esderr <- exp(f$sd[\"sdlog\"]);";
+				Rcode += "esderr <- as.numeric(prettyNum(esderr, digits=3));";
 				Rcode += "median <- median(datax);";
+				Rcode += "median <- as.numeric(prettyNum(median, digits=3));";
 				//Rcode += "mtext(paste(\"median=\",median,\" Fit (log-normal): mode = \",emode,\" mean = \",emean,\" (\",emeanerr,\") sd = \",esd,\" (\",esderr,\")\"));";
-				Rcode += "mtext(substitute(paste('x'[50],\"=\",med,\" mode=\",mo,\" \",mu,\"=\",m,\" (\",mr,\") \",sigma,\"=\",sd,\" (\",sdr,\")\"),list(med=median,mo=emode,m=emean,mr=emeanerr,sd=esd,sdr=esderr)),side=3)";
+				Rcode += "mtext(substitute(paste('x'[50],"
+						+ "\"=\","
+						+ "med,"
+						+ "\" \","
+						+ "\" "+unit+"\","
+						+ "\" mode=\","
+						+ "mo,"
+						+ "\" \","
+						+ "\" "+unit+"\","
+						+ "\" \","
+						+ "mu,"
+						+ "\"=\","
+						+ "m,"
+						+ "\"  \","
+						+ "\" "+unit+"\","
+						+ "\"  \","
+						+ "sigma,"
+						+ "\"=\","
+						+ "sd,\" \",\""+unit+"\"),list(med=format(median,scientific=TRUE),mo=format(emode,scientific=TRUE),m=format(emean,scientific=TRUE),sd=format(esd,scientific=TRUE))),side=3)";
 			}
 			else{
 				Rcode += "median <- median(datax);";
