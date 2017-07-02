@@ -77,7 +77,7 @@ public class StartRserve {
 			String osname = System.getProperty("os.name");
 			if (osname != null && osname.length() >= 7 && osname.substring(0,7).equals("Windows")) {
 				isWindows = true; /* Windows startup */
-
+/*
 				int to = cmd.lastIndexOf("\\");
 				String dir = cmd.substring(0, to) + "\\";
 				
@@ -93,7 +93,8 @@ public class StartRserve {
 						
 					}      
 			    }
-				
+				*/
+				String dir = ij.Prefs.get("ndef.rpath", "...") + "/bin/R.exe";
 				String[] expr = new String[5];
 				expr[0] = "\""+dir+"\"";
 				expr[1] = "-e";

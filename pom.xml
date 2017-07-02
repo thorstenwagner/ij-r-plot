@@ -6,7 +6,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
  
 	<groupId>de.biomedical-imaging.imagej</groupId>
 	<artifactId>ij_r_plot</artifactId>
-	<version>0.5</version>
+	<version>0.6-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	
 	<parent>

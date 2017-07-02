@@ -21,7 +21,7 @@ public class RPlot extends Canvas{
 	String cmd;
 	boolean startsucceded = false;
 	public RPlot(){
-		if(IJ.isLinux()){
+		if(IJ.isLinux() || IJ.isMacOSX()){
 			cmd = "R";
 		} 
 		else if(IJ.isWindows()){
