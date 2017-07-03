@@ -66,6 +66,7 @@ public class HistogramFrame extends Frame {
 		
 		filename = plotHist();
 		Opener opener = new Opener();  
+	
 		imp =  opener.openImage(filename);
 		
 		imp.show();
@@ -395,15 +396,22 @@ public class HistogramFrame extends Frame {
 		String tmp = "";
 		String filename = "";
 	//	updateData();
+		IJ.log("A");
 		try {
 			tmp = IJ.getDirectory("temp");
 			tmp = tmp.replace("\\", "\\\\");
 			c = StartRserve.c;//new RConnection();
+			IJ.log("A");
+			IJ.log("setwd(\"" + tmp + "\")");
 			c.eval("setwd(\"" + tmp + "\")");
+			IJ.log("B");
 			c.assign("datax", data);
+			IJ.log("C");
 			filename = "histogram_" + getStamp() + ".png";
-
+			IJ.log("D: " + filename);
+			IJ.log("png(file=\"" + filename + "\", 640, 480)");
 			c.eval("png(file=\"" + filename + "\", 640, 480)");
+			IJ.log("E");
 			String Rcode = "library(\"MASS\");";
 			if (addNormal) {
 				Rcode += "f <- fitdistr(datax, \"normal\");";
@@ -552,13 +560,17 @@ public class HistogramFrame extends Frame {
 				Rcode += "mtext(substitute(paste('x'[50],\"=\",medtxt,\" \",\""+unit+"\"),list(medtxt=format(median,scientific=TRUE))));";
 			
 			}
+			IJ.log("D");
+			IJ.log("Rcode");
 			c.eval(Rcode);
+			IJ.log("E");
 			c.eval("dev.off()");
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			IJ.log("LM " + e.getLocalizedMessage());
 			IJ.log("M " + e.getMessage());
+			IJ.log("S " + e.toString());
 			//e.printStackTrace();
 		}
 
