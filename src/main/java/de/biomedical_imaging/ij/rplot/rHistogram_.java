@@ -91,9 +91,6 @@ public class rHistogram_ implements PlugIn {
 	
 	
 			RPlot test = new RPlot();
-	
-			test.hist(column, title, xlab, ylab, addDensity, addNormal, addlognormal,
-					showbars);
 			
 			if(test.isStartSucceded() ==false){
 				double[] data = rt.getColumnAsDoubles(column);
@@ -102,6 +99,10 @@ public class rHistogram_ implements PlugIn {
 				int bins = (int)Math.ceil(Math.log(data.length)/Math.log(2)+1)*2;
 				HistogramWindow hw = new HistogramWindow(title, imhelp, bins);
 				hw.setVisible(true);
+			}
+			else {
+				test.hist(column, title, xlab, ylab, addDensity, addNormal, addlognormal,
+						showbars);
 			}
 			
 			
