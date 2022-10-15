@@ -116,8 +116,8 @@ public class HistogramFrame extends Frame {
 		String imagepath = Prefs.get("ndef.used.path", "Not readable");
 		String rollingBallRadius = Prefs.get("ndef.used.rollingBallRadius", "Not readable");
 		String localThresholdWindowSize = Prefs.get("ndef.used.localThresholdWindowSize", "Not readable");
-		String minSize = Prefs.get("ndef.used.minSize", "Not readable");
-		String minFeretMin = Prefs.get("ndef.used.minFeretMin", "Not readable");
+		String sizeRange = Prefs.get("ndef.used.sizeRange", "Not readable");
+		String feretMinRange = Prefs.get("ndef.used.feretMinRange", "Not readable");
 		String filterSolidity = Prefs.get("ndef.used.filterSolidity", "Not readable");
 		String convexity = Prefs.get("ndef.used.convexity", "Not readable");
 		String objectIntensityThreshold = Prefs.get("ndef.used.objectIntensityThreshold", "Not readable");
@@ -145,10 +145,10 @@ public class HistogramFrame extends Frame {
 		imp.getProcessor().drawString("Rolling ball radius: " + rollingBallRadius, 2, 560);
 		imp.getProcessor().drawString("Averaged minimal object intensity: " + objectIntensityThreshold, 2, 580);
 		
-		imp.getProcessor().drawString("Minimal Area: " + minSize, 250, 520);
-		imp.getProcessor().drawString("Minimal Feret Min.: " + minFeretMin, 250, 540);
-		imp.getProcessor().drawString("Minimal Convexity: " + convexity, 250, 560);
-		imp.getProcessor().drawString("Minimal Solidity: " + filterSolidity, 250, 580);
+		imp.getProcessor().drawString("Area Range: " + sizeRange, 250, 520);
+		imp.getProcessor().drawString("Feret Min Range.: " + feretMinRange, 250, 540);
+		imp.getProcessor().drawString("Convexity Range: " + convexity, 250, 560);
+		imp.getProcessor().drawString("Solidity Range: " + filterSolidity, 250, 580);
 		
 		imp.getProcessor().drawString("Smoothing factor: " + smoothingFactor, 450, 520);
 		imp.getProcessor().drawString("Irregular Watershed (IWS): " + doIrregularWatershed , 450, 540);
