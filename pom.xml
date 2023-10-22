@@ -6,7 +6,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
  
 	<groupId>de.biomedical-imaging.imagej</groupId>
 	<artifactId>ij_r_plot</artifactId>
-	<version>0.7</version>
+	<version>0.7.3</version>
 	<packaging>jar</packaging>
 	
 	<parent>
@@ -40,7 +40,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 			</properties>
 		</developer>
 	</developers>
-		<build>
+	<build>
 		<plugins>
 		<plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -52,6 +52,6 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
             </configuration>
         </plugin>
         </plugins>
-     </build>
+    </build>
 
 </project>

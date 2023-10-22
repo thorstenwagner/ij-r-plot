@@ -42,6 +42,7 @@ public class rHistogram_ implements PlugIn {
 		gd.addStringField("Title", "");
 		gd.addStringField("X-axis_label", headings[0]);
 		gd.addStringField("Y-axis_label", "Frequency");
+		gd.addNumericField("Bin width", -1, 0);
 		
 		String[] fitDistrItems = {"None","Normal fit","log-normal fit","Kernel density estimate"};
 		gd.addChoice("Fit Distribution", fitDistrItems, fitDistrItems[2]);
@@ -59,6 +60,7 @@ public class rHistogram_ implements PlugIn {
 				xlab = headings[0];
 			}
 			String ylab = gd.getNextString();
+			double bin_width = (double)gd.getNextNumber();
 			
 			String fitdistrChoice = gd.getNextChoice();
 			boolean addNormal = false;
@@ -97,7 +99,19 @@ public class rHistogram_ implements PlugIn {
 				FloatProcessor fp = new FloatProcessor(data.length, 1, data);
 				ImagePlus imhelp = new ImagePlus("h", fp);
 				int bins = (int)Math.ceil(Math.log(data.length)/Math.log(2)+1)*2;
-				HistogramWindow hw = new HistogramWindow(title, imhelp, bins);
+				double fpMax = fp.getMax();
+				double fpMin = fp.getMin();
+				double max_padding = 0;
+				if (bin_width!=-1) {
+					
+					bins = (int)((fpMax-fpMin)/bin_width + 1);
+					max_padding = bins*bin_width + fpMin - fpMax;
+					IJ.log("" + fp.getMax() +" "+fp.getMin()+" "+bins);
+					
+				}
+				
+				
+				HistogramWindow hw = new HistogramWindow(title, imhelp, bins, fpMin,fpMax+max_padding);
 				hw.setVisible(true);
 			}
 			else {

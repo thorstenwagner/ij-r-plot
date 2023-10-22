@@ -77,24 +77,11 @@ public class StartRserve {
 			String osname = System.getProperty("os.name");
 			if (osname != null && osname.length() >= 7 && osname.substring(0,7).equals("Windows")) {
 				isWindows = true; /* Windows startup */
-/*
-				int to = cmd.lastIndexOf("\\");
-				String dir = cmd.substring(0, to) + "\\";
-				
-				dir = dir.replace("\\", "/");
-				dir = dir.replace(" ", "%20");
-				
-				URI outputURI = new URI(("file:///"+ dir)); 
-				File f = new File(outputURI);
-
-				for (final File fileEntry : f.listFiles()) {
-					if(fileEntry.getName().equals("R.bat")){
-						dir = fileEntry.getAbsolutePath();
-						
-					}      
-			    }
-				*/
-				String dir = ij.Prefs.get("ndef.rpath", "...") + "/bin/R.exe";
+				String rpath = ij.Prefs.get("ndef.rpath", "...");
+				if(rpath.equals("...")) {
+					return false;
+				}
+				String dir = rpath + "/bin/R.exe";
 				String[] expr = new String[5];
 				expr[0] = "\""+dir+"\"";
 				expr[1] = "-e";
